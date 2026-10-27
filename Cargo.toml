@@ -1,0 +1,10 @@
+[package]
+name = "my-app-time"
+version = "0.1.0-dev"
+authors = ["Sergey Desyatkov <sergeydesyatkov@proton.me>"]
+edition = "2024"
+description = "Your app usage time tracker"
+repository = "https://github.com/desyatkoff/my-app-time"
+license = "GPL-3.0-or-later"
+
+[dependencies]
