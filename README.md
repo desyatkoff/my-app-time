@@ -13,9 +13,13 @@
 
 **MyAppTime** is your app usage time tracker
 
+> [!NOTE]
+> Currently works for KDE Plasma only! Support for other DEs and WMs will be added in future
+
 ## Features
 
-// TODO
+* Tracks current active app's class name
+* Saves all usage stats to `~/.local/state/my-app-time/` in a JSON file named with date in `YYYY-MM-DD` format every minute (example: `2026-10-27.json` is stats for October 27th, 2026)
 
 ## Installation
 
@@ -25,7 +29,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/desyatkoff/my-app-time/main/
 
 ## Usage
 
-// TODO
+Just run the app and keep it in the background
 
 ## Feedback
 
