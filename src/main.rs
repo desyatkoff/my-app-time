@@ -1,4 +1,4 @@
-use chrono::{Duration as ChronoDuration, Utc};
+use chrono::{Duration as ChronoDuration, Local};
 use clap::Parser;
 use crossterm::{
     event::{self, Event, KeyCode},
@@ -103,13 +103,13 @@ fn main() {
                         let (t, _, _) = get_dates();
                         let today = load_for_date(&t);
                         let week = load_range(
-                            &(Utc::now() - ChronoDuration::days(7))
+                            &(Local::now() - ChronoDuration::days(7))
                                 .format("%Y-%m-%d")
                                 .to_string(),
                             &t,
                         );
                         let month = load_range(
-                            &(Utc::now() - ChronoDuration::days(30))
+                            &(Local::now() - ChronoDuration::days(30))
                                 .format("%Y-%m-%d")
                                 .to_string(),
                             &t,
@@ -164,7 +164,7 @@ fn load_for_date(date_str: &str) -> Stats {
 }
 
 fn get_dates() -> (String, String, String) {
-    let today = Utc::now();
+    let today = Local::now();
     let week = today - ChronoDuration::days(7);
     let month = today - ChronoDuration::days(30);
 
@@ -201,8 +201,8 @@ fn format_duration(seconds: u64) -> String {
 
 fn load_range(start_str: &str, end_str: &str) -> Stats {
     let mut stats = Stats::default();
-    let dir = dirs::state_dir()
-        .unwrap_or_else(|| PathBuf::from("~/.local/state"))
+    let dir = data_local_dir()
+        .unwrap_or_else(|| PathBuf::from("~/.local/share"))
         .join("my-app-time");
 
     if let Ok(entries) = read_dir(&dir) {
