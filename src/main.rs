@@ -5,7 +5,7 @@ use crossterm::{
     execute,
     terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
-use dirs::state_dir;
+use dirs::data_local_dir;
 use kdotool::get_active_window_info;
 use ratatui::{
     Terminal,
@@ -72,9 +72,9 @@ fn main() {
                 if tick % 60 == 0 {
                     let today = get_dates().0;
 
-                    create_dir_all(state_path_for_date(&today).parent().unwrap()).unwrap();
+                    create_dir_all(path_for_date(&today).parent().unwrap()).unwrap();
                     write(
-                        state_path_for_date(&today),
+                        path_for_date(&today),
                         serde_json::to_string_pretty(&stats).unwrap(),
                     )
                     .unwrap();
@@ -146,15 +146,15 @@ fn get_active_app() -> Option<String> {
     None
 }
 
-fn state_path_for_date(date_str: &str) -> PathBuf {
-    state_dir()
-        .unwrap_or_else(|| PathBuf::from("~/.local/state"))
+fn path_for_date(date_str: &str) -> PathBuf {
+    data_local_dir()
+        .unwrap_or_else(|| PathBuf::from("~/.local/share"))
         .join("my-app-time")
         .join(format!("{}.json", date_str))
 }
 
 fn load_for_date(date_str: &str) -> Stats {
-    let p = state_path_for_date(date_str);
+    let p = path_for_date(date_str);
 
     create_dir_all(p.parent().unwrap()).unwrap_or(());
     read_to_string(&p)

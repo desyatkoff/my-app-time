@@ -19,7 +19,7 @@
 ## Features
 
 * Tracks current active app's class name and usage time
-* Saves all usage stats to `~/.local/state/my-app-time/` in a JSON file named with date in `YYYY-MM-DD` format every minute (example: `2026-10-27.json` is stats for October 27th, 2026)
+* Saves all usage stats to `~/.local/share/my-app-time/` in a JSON file named with date in `YYYY-MM-DD` format every minute (example: `2026-10-27.json` is stats for October 27th, 2026)
 * TUI with actual data from the last: day, week, month
 
 ## Installation
