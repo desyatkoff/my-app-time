@@ -1,5 +1,4 @@
 use crate::storage::{Stats, format_duration, get_dates, load_for_date, load_range};
-use chrono::{Duration as ChronoDuration, Local};
 use crossterm::{
     event::{self, Event, KeyCode},
     execute,
@@ -26,20 +25,10 @@ pub fn run_tui() {
     loop {
         terminal
             .draw(|f| {
-                let (t, _, _) = get_dates();
+                let (t, w, m) = get_dates();
                 let today = load_for_date(&t);
-                let week = load_range(
-                    &(Local::now() - ChronoDuration::days(7))
-                        .format("%Y-%m-%d")
-                        .to_string(),
-                    &t,
-                );
-                let month = load_range(
-                    &(Local::now() - ChronoDuration::days(30))
-                        .format("%Y-%m-%d")
-                        .to_string(),
-                    &t,
-                );
+                let week = load_range(&w, &t);
+                let month = load_range(&m, &t);
 
                 draw_ui(f, &today, &week, &month);
             })
